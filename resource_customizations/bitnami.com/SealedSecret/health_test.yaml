@@ -11,3 +11,7 @@ tests:
     status: Healthy
     message: ""
   inputPath: testdata/healthy.yaml
+- healthStatus:
+    status: Progressing
+    message: "Waiting for Sealed Secret to be decrypted: observed generation less then desired generation"
+  inputPath: testdata/progressing_newGeneration.yaml

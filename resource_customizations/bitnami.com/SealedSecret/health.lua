@@ -1,5 +1,10 @@
 local health_status={}
 if obj.status ~= nil then
+    if obj.status.observedGeneration ~= nil and obj.metadata.generation ~= nil and obj.status.observedGeneration < obj.metadata.generation then
+        health_status.status = "Progressing"
+        health_status.message = "Waiting for Sealed Secret to be decrypted: observed generation less then desired generation"
+        return health_status
+    end
     if obj.status.conditions ~= nil then
         for i, condition in ipairs(obj.status.conditions) do
             if condition.type == "Synced" and condition.status == "False" then
